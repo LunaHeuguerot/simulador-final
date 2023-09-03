@@ -16,7 +16,7 @@ while (minutosJugados < 90 && golesLocal < 5 && golesVisitante < 5) {
   if (probabilidadGolLocal < 0.02) {
     golesLocal += 1;
     console.log('Gol de ' + equipoLocal + ' en el minuto ' + minuto);
-    document.write('<div class="card"><img src="/assets/festejos-gol/gol-arg.webp" alt="gol argentina"><h2 class="texto">¡Gol de Argentina!</h2></div>');
+    document.write('<div class="card"><img src="assets/festejos-gol/gol-arg.webp" alt="gol argentina"><h2 class="texto">¡Gol de Argentina!</h2></div>');
   } else if (probabilidadGolVisitante < 0.02) {
     golesVisitante += 1;
     console.log('Gol de ' + equipoVisitante + ' en el minuto ' + minuto);
