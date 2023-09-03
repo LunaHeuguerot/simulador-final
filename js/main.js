@@ -27,17 +27,19 @@ while (minutosJugados < 90 && golesLocal < 5 && golesVisitante < 5) {
   minutosJugados = minuto;
 }
 
-// Determinar el ganador después de que el partido ha terminado
+// Hay ganador
 if (golesLocal > golesVisitante) {
   console.log('¡El partido ha terminado! Resultado final: ' + equipoLocal + ' ' + golesLocal + ' - ' + golesVisitante + ' ' + equipoVisitante + '. ¡' +equipoLocal + ' Campeón del mundo!');
 
   document.write('<div class="card"><img src="../assets/campeon/arg-campeon.jpg" alt="argentina campeon"><h2 class="texto">¡Argentina Campeon de Mundo!</h2></div>');
+  document.write('<div class="card"><img src="../assets/campeon/arg-campeon-festejos.jpg" alt="argentina campeon"><h2 class="texto">¡Se festeja en las calles!</h2></div>');
+  document.write('<div class="card"><img src="../assets/campeon/arg-campeon-festejos.webp" alt="argentina campeon"><h2 class="texto">18-12-2022</h2></div>');
 } else if (golesVisitante > golesLocal) {
   console.log('¡El partido ha terminado! Resultado final: ' + equipoVisitante + ' ' + golesVisitante + ' - ' + equipoLocal + ' ' + golesLocal + '. ¡' +equipoVisitante + ' Campeón del mundo!');
 
   document.write('<div class="card"><img src="../assets/campeon/francia-campeon.jpg" alt="francia campeon"><h2 class="texto">¡Francia Campeon de Mundo!</h2></div>');
 } else {
-  // Si se alcanzan los 90 minutos y aún hay empate, jugar tiempo extra u otra forma de desempate.
+  // Hay empate -> penales
   console.log('Terminó el partido: ' + equipoLocal + ' ' + golesLocal + ' - ' + golesVisitante + ' ' + equipoVisitante+ '. Habrá penales en el Estadio Lusail');
   document.write('<div class="card"><img src="../assets/campeon/penales.jpg" alt="francia campeon"><h2 class="texto">¡Habrá penales!</h2></div>');
 }
