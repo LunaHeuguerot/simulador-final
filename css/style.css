@@ -1,21 +1,21 @@
 body {
     margin: auto;
-    background-image: url(../assets/body/background.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;    
+    background: rgb(132,4,32);
+    background: linear-gradient(90deg, rgba(132,4,32,1) 0%, rgba(149,29,55,1) 50%, rgba(140,49,69,1) 100%);
 }
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);
     width: 325px;
     height: 350px; 
     float: left;
     margin: 15px 0;
     padding: 10px;
-    background-color: white; 
+    background-color: rgb(250, 247, 247); 
     position: relative; 
     margin-inline: 10px;
     border-radius: 1rem;
+    /* border: #333 solid; */
 }
 
 .card img {
@@ -31,9 +31,9 @@ body {
 .card .texto {
     position: relative;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center; 
     font-size: 2rem; 
-    color: #333; 
+    color: #000000; 
 }
 
