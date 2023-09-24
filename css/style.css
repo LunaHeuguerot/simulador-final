@@ -2,6 +2,7 @@ body {
     margin: auto;
     background: rgb(132,4,32);
     background: linear-gradient(90deg, rgba(132,4,32,1) 0%, rgba(149,29,55,1) 50%, rgba(140,49,69,1) 100%);
+    
 }
 
 .card {
@@ -14,8 +15,7 @@ body {
     background-color: rgb(250, 247, 247); 
     position: relative; 
     margin-inline: 10px;
-    border-radius: 1rem;
-    /* border: #333 solid; */
+    border-radius: 1rem;    
 }
 
 .card img {
@@ -37,3 +37,23 @@ body {
     color: #000000; 
 }
 
+.card ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.card li {
+    margin-bottom: 5px;
+    font-family: Arial, sans-serif;
+    /* font-size: smaller; */
+}
+
+#formaciones .card li {
+    font-size:smaller;
+}
+
+.goleadores-container .card {
+    font-size: larger;
+    width: fit-content;
+    height: fit-content !important;
+} 
