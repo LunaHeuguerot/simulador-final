@@ -13,18 +13,24 @@ let golesArg = 0;
 let golesFrancia = 0;
 let minutosJugados = 0;
 
-
 let goleadoresMostrados = false;
-
 
 let goleadoresSeleccionadosArg = 0;
 let goleadoresSeleccionadosFra = 0;
+
+let historialPartidos = [];
+let victoriasArgentina = 0;
+let victoriasFrancia = 0;
+let empates = 0;
+let goleadoresSeleccionados = [];
+
+// Cargar datos desde localStorage
+cargarDatosDesdeLocalStorage();
 
 //FORMACIONES
 document.getElementById('teamsButton').addEventListener('click', function () {
   mostrarFormaciones();
 });
-
 
 function mostrarFormaciones() {
   const tarjetaArgentina = generarFormacion('Argentina', titularesArgentina);
@@ -42,7 +48,6 @@ function mostrarFormaciones() {
     teamsButton.textContent = 'MOSTRAR FORMACIONES'; 
   });
 }
-
 
 function generarFormacion(nombreEquipo, jugadores) {
   const tarjeta = document.createElement('div');
@@ -125,7 +130,7 @@ function relatoGol(equipo, minuto) {
     agregarGoleador(equipo, jugadorSeleccionado);
     selector.style.display = 'none';
     mostrarGol(equipo, jugadorSeleccionado, minuto); 
-    actualizarContadorGoleadores(equipo);
+    actualizarContadorGoleadores(equipo, jugadorSeleccionado);
   });
 
   const contenedorPartido = document.querySelector('.contenedor-partido');
@@ -139,15 +144,18 @@ function agregarGoleador(equipo, jugador) {
   } else if (equipo === equipoVisitante) {
     goleadoresFrancia.push(jugador);
   }
-  guardarDatosEnLocalStorage();
 }
 
-function actualizarContadorGoleadores(equipo) {
+function actualizarContadorGoleadores(equipo, jugadorSeleccionado) {
   if (equipo === equipoLocal) {
     goleadoresSeleccionadosArg += 1;
+    goleadoresSeleccionados.push({equipo: equipoLocal, jugador: jugadorSeleccionado});
   } else if (equipo === equipoVisitante) {
     goleadoresSeleccionadosFra += 1;
+    goleadoresSeleccionados.push({equipo: equipoVisitante, jugador: jugadorSeleccionado});
   }
+
+  guardarDatosLocalStorage();
 }
 
 document.getElementById('goleadoresButton').addEventListener('click', function () {
@@ -237,8 +245,17 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
   const resultadoFinalElement = document.getElementById('resultadoFinal');
 
   let resultadoFinalTexto = ''; 
+  const resultadoPartido = {
+    equipo1,
+    goles1,
+    equipo2, 
+    goles2
+  };
+
+  historialPartidos.push(resultadoPartido);
 
   if (goles1 > goles2) {
+    victoriasArgentina+=1;
     resultadoFinalTexto = `${equipo1} ${goles1} - ${goles2} ${equipo2} (${equipo1} Campeón)`;
     const campeonArgHTML = `
       <div class="card">
@@ -258,6 +275,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     resultadoFinalElement.innerHTML = campeonArgHTML;
     console.log("¡" + equipo1 + " Campeón del mundo!");
   } else if (goles2 > goles1) {
+    victoriasFrancia+=1;
     resultadoFinalTexto = `${equipo2} ${goles2} - ${goles1} ${equipo1} (${equipo2} Campeón)`;
     const campeonFranciaHTML = `
       <div class="card">
@@ -269,6 +287,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     resultadoFinalElement.innerHTML = campeonFranciaHTML;
     console.log("¡" + equipo2 + " Campeón del mundo!");
   } else {
+    empates+=1;
     resultadoFinalTexto = `Empate ${goles1} - ${goles2}`;
     const penalesHTML = `
       <div class="card">
@@ -281,66 +300,34 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     console.log("¡Habrá penales en el Estadio Lusail!");
   }
 
+  guardarDatosLocalStorage();
+
   const marcadorFinalTexto = document.createElement('h3');
   marcadorFinalTexto.textContent = `Marcador Final: ${equipo1} ${goles1} - ${goles2} ${equipo2}`;
   resultadoFinalElement.appendChild(marcadorFinalTexto);
-
-  guardarDatosEnLocalStorage();
 }
-
 
 // LOCAL STORAGE
-
-function guardarDatosEnLocalStorage() {
-  const datos = {
-    'goleadoresArgentina': goleadoresArgentina,
-    'goleadoresFrancia': goleadoresFrancia,
-    'golesArg': golesArg,
-    'golesFrancia': golesFrancia,
-    'minutosJugados': minutosJugados,
-    'goleadoresSeleccionadosArg': goleadoresSeleccionadosArg,
-    'goleadoresSeleccionadosFra': goleadoresSeleccionadosFra
+function guardarDatosLocalStorage(){
+  const datosAGuardar = {
+    historialPartidos,
+    victoriasArgentina,
+    victoriasFrancia,
+    empates,
+    goleadoresSeleccionados
   };
+  localStorage.setItem('datosPartido', JSON.stringify(datosAGuardar));
+}
 
-  for (const clave in datos) {
-    if (datos.hasOwnProperty(clave)) {
-      localStorage.setItem(clave, JSON.stringify(datos[clave]));
-    }
+function cargarDatosDesdeLocalStorage(){
+  const datosGuardados = localStorage.getItem('datosPartido');
+
+  if (datosGuardados) {
+    const datosParseados = JSON.parse(datosGuardados);
+    historialPartidos = datosParseados.historialPartidos || [];
+    victoriasArgentina = datosParseados.victoriasArgentina || 0;
+    victoriasFrancia = datosParseados.victoriasFrancia || 0;
+    empates = datosParseados.empates || 0;
+    goleadoresSeleccionados = datosParseados.goleadoresSeleccionados || [];
   }
 }
-
-function cargarDatosDesdeLocalStorage() {
-  const claves = [
-    'goleadoresArgentina',
-    'goleadoresFrancia',
-    'golesArg',
-    'golesFrancia',
-    'minutosJugados',
-    'goleadoresSeleccionadosArg',
-    'goleadoresSeleccionadosFra',
-    'jugadoresArgentina', 
-    'jugadoresFrancia'    
-  ];
-
-  claves.forEach((clave) => {
-    const valorGuardado = localStorage.getItem(clave);
-    if (valorGuardado) {
-      if (clave.startsWith('goleadores')) {
-        const variable = clave.replace('goleadores', '');
-        window[variable] = JSON.parse(valorGuardado);
-      } else if (clave === 'jugadoresArgentina' || clave === 'jugadoresFrancia') {
-        window[clave] = JSON.parse(valorGuardado);
-      } else {
-        window[clave] = parseInt(valorGuardado);
-      }
-    }
-  });
-
-  titularesArgentina.length = 0;
-  titularesArgentina.push(...jugadoresArgentina.filter((jugador) => jugador.titular === true));
-
-  titularesFrancia.length = 0;
-  titularesFrancia.push(...jugadoresFrancia.filter((jugador) => jugador.titular === true));
-}
-
-window.addEventListener('load', cargarDatosDesdeLocalStorage);
