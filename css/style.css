@@ -5,6 +5,20 @@ body {
     
 }
 
+
+section {
+    width: 100%;
+    min-height: 100vh; 
+    display: block; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+
+h1{
+    text-align: center;
+}
+
 .card {
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);
     width: 325px;
@@ -45,7 +59,6 @@ body {
 .card li {
     margin-bottom: 5px;
     font-family: Arial, sans-serif;
-    /* font-size: smaller; */
 }
 
 #formaciones .card li {
@@ -57,3 +70,38 @@ body {
     width: fit-content;
     height: fit-content !important;
 } 
+
+.contenedor-boton {
+    text-align: center;
+}
+
+.button {
+    align-self: center;
+    width: fit-content;
+    min-width: 5rem;
+    height: 2rem;
+    border-radius: 1rem;
+}
+
+.contenedor-formaciones {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+}
+
+.card h5 {
+    text-align: center;
+}
+
+.titulo {
+    text-align: center;
+}
+
+select { 
+    width: 10rem;
+    height: 2rem;
+    text-align: center;
+    margin: 1rem;
+    border-radius: 1rem;
+}
+
