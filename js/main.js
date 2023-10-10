@@ -58,10 +58,17 @@ function generarFormacion(nombreEquipo, jugadores) {
   titulo.textContent = `Once inicial de ${nombreEquipo}`;
   tarjeta.appendChild(titulo);
 
+  // const listaJugadores = document.createElement('ul');
+  // jugadores.forEach((jugador) => {
+  //   const elementoJugador = document.createElement('li');
+  //   elementoJugador.textContent = `${jugador.dorsal} ${jugador.nombre} - ${jugador.posicion}`;
+  //   listaJugadores.appendChild(elementoJugador);
+  // });
   const listaJugadores = document.createElement('ul');
   jugadores.forEach((jugador) => {
+    const { dorsal, nombre, posicion } = jugador; 
     const elementoJugador = document.createElement('li');
-    elementoJugador.textContent = `${jugador.dorsal} ${jugador.nombre} - ${jugador.posicion}`;
+    elementoJugador.textContent = `${dorsal} ${nombre} - ${posicion}`;
     listaJugadores.appendChild(elementoJugador);
   });
 
@@ -91,17 +98,15 @@ function mostrarGol(equipo, jugador, minuto) {
   const textoGol = document.createElement('h2');
   textoGol.className = 'texto';
 
-  if (equipo === 'Argentina') {
-    imagenGol.src = 'assets/festejos-gol/gol-arg.webp';
-    imagenGol.alt = 'gol argentina';
-    textoGol.textContent = `¡Gol de Argentina!`;
-  } else if (equipo === 'Francia') {
-    imagenGol.src = 'assets/festejos-gol/gol-francia.webp';
-    imagenGol.alt = 'gol francia';
-    textoGol.textContent = `¡Gol de Francia!`;
-  }
+  const { src, alt } = equipo === 'Argentina'
+    ? { src: 'assets/festejos-gol/gol-arg.webp', alt: 'gol argentina' }
+    : { src: 'assets/festejos-gol/gol-francia.webp', alt: 'gol francia' };
 
-  // tarjeta de gol
+  imagenGol.src = src;
+  imagenGol.alt = alt;
+  textoGol.textContent = equipo === 'Argentina' ? '¡Gol de Argentina!' : '¡Gol de Francia!';
+
+  // Tarjeta de gol
   const minutoGolElement = document.createElement('h5');
   minutoGolElement.textContent = `Minuto: ${minuto}, Autor: ${jugador}`;
 
@@ -111,6 +116,7 @@ function mostrarGol(equipo, jugador, minuto) {
 
   contenedorPartido.appendChild(tarjetaGol);
 }
+
 
 function relatoGol(equipo, minuto) {
   const titulares = equipo === equipoLocal ? titularesArgentina : titularesFrancia;
