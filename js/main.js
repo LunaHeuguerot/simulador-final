@@ -338,22 +338,23 @@ function guardarUltimoPartido(resultado) {
   localStorage.setItem('ultimoResultado', JSON.stringify(resultado));
 }
 
+cargarDatosDesdeLocalStorage();
+
 document.getElementById('mostrarResultadoButton').addEventListener('click', function () {
-  console.log('Botón clickeado'); 
   const contenedorResultado = document.getElementById('resultadoFinal');
   const resultadoGuardado = localStorage.getItem('ultimoResultado');
   
-  console.log('Resultado guardado:', resultadoGuardado); 
+  const resultadoMostrar = resultadoGuardado
+    ? JSON.parse(resultadoGuardado)
+    : null;
 
-  if (resultadoGuardado) {
-    const resultadoParseado = JSON.parse(resultadoGuardado);
-    console.log('Resultado parseado:', resultadoParseado); 
-    contenedorResultado.textContent = `Último resultado: ${resultadoParseado.equipo1} ${resultadoParseado.goles1} - ${resultadoParseado.goles2} ${resultadoParseado.equipo2}`;
+  if (resultadoMostrar) {
+    contenedorResultado.textContent = `Último resultado: ${resultadoMostrar.equipo1} ${resultadoMostrar.goles1} - ${resultadoMostrar.goles2} ${resultadoMostrar.equipo2}`;
   } else {
-    
     contenedorResultado.textContent = 'No hay resultados guardados.';
   }
 });
+
 
 
 
