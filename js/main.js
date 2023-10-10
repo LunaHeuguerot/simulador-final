@@ -339,20 +339,18 @@ function guardarUltimoPartido(resultado) {
 }
 
 document.getElementById('mostrarResultadoButton').addEventListener('click', function () {
-  console.log('Botón clickeado'); // Comprueba si se activa el evento de clic del botón
+  console.log('Botón clickeado'); 
   const contenedorResultado = document.getElementById('resultadoFinal');
   const resultadoGuardado = localStorage.getItem('ultimoResultado');
   
-  console.log('Resultado guardado:', resultadoGuardado); // Comprueba si se recupera el resultado almacenado
+  console.log('Resultado guardado:', resultadoGuardado); 
 
   if (resultadoGuardado) {
     const resultadoParseado = JSON.parse(resultadoGuardado);
-    console.log('Resultado parseado:', resultadoParseado); // Comprueba si funciona el análisis del resultado
-
-    // Mostrar el resultado guardado en el contenedor-resultado
+    console.log('Resultado parseado:', resultadoParseado); 
     contenedorResultado.textContent = `Último resultado: ${resultadoParseado.equipo1} ${resultadoParseado.goles1} - ${resultadoParseado.goles2} ${resultadoParseado.equipo2}`;
   } else {
-    // Manejar el caso en el que no hay resultado guardado
+    
     contenedorResultado.textContent = 'No hay resultados guardados.';
   }
 });
