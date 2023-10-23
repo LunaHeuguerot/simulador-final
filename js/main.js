@@ -24,8 +24,34 @@ let victoriasFrancia = 0;
 let empates = 0;
 let goleadoresSeleccionados = [];
 
+let seleccionCompleta = false;
+
 // Cargar datos desde localStorage
-cargarDatosDesdeLocalStorage();
+cargarDatosDesdeLocalStorage()
+  .then(() => {
+    Swal.fire({
+      title: '¡Datos cargados con éxito!',
+      padding: '1rem',
+      background: 'rgb(240, 248, 255)',
+      timer: 3000,
+      timerProgressBar: true,
+      toast: true,
+      position: 'top-end',
+    });
+  })
+  .catch((error) => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Error al cargar los datos: ' + error,
+      padding: '1rem',
+      background: 'rgb(240, 248, 255)',
+      timer: 3000,
+      timerProgressBar: true,
+      toast: true,
+      position: 'top-end',
+    });
+  });
 
 //FORMACIONES
 document.getElementById('teamsButton').addEventListener('click', function () {
@@ -44,8 +70,8 @@ function mostrarFormaciones() {
 
   teamsButton.addEventListener('click', function () {
     const contenedorFormaciones = document.querySelector('.contenedor-formaciones');
-    contenedorFormaciones.innerHTML = ''; 
-    teamsButton.textContent = 'MOSTRAR FORMACIONES'; 
+    contenedorFormaciones.innerHTML = '';
+    teamsButton.textContent = 'MOSTRAR FORMACIONES';
   });
 }
 
@@ -58,15 +84,9 @@ function generarFormacion(nombreEquipo, jugadores) {
   titulo.textContent = `Once inicial de ${nombreEquipo}`;
   tarjeta.appendChild(titulo);
 
-  // const listaJugadores = document.createElement('ul');
-  // jugadores.forEach((jugador) => {
-  //   const elementoJugador = document.createElement('li');
-  //   elementoJugador.textContent = `${jugador.dorsal} ${jugador.nombre} - ${jugador.posicion}`;
-  //   listaJugadores.appendChild(elementoJugador);
-  // });
   const listaJugadores = document.createElement('ul');
   jugadores.forEach((jugador) => {
-    const { dorsal, nombre, posicion } = jugador; 
+    const { dorsal, nombre, posicion } = jugador;
     const elementoJugador = document.createElement('li');
     elementoJugador.textContent = `${dorsal} ${nombre} - ${posicion}`;
     listaJugadores.appendChild(elementoJugador);
@@ -79,7 +99,7 @@ function generarFormacion(nombreEquipo, jugadores) {
 
 function agregarFormacion(tarjeta) {
   const contenedorFormaciones = document.querySelector('.contenedor-formaciones');
-  contenedorFormaciones.appendChild(tarjeta); 
+  contenedorFormaciones.appendChild(tarjeta);
 }
 
 // FUNCIONES DE JUEGO
@@ -117,7 +137,6 @@ function mostrarGol(equipo, jugador, minuto) {
   contenedorPartido.appendChild(tarjetaGol);
 }
 
-
 function relatoGol(equipo, minuto) {
   const titulares = equipo === equipoLocal ? titularesArgentina : titularesFrancia;
 
@@ -135,7 +154,7 @@ function relatoGol(equipo, minuto) {
     console.log('Gol de ' + equipo + ' en el minuto ' + minuto + ". Lo hizo " + jugadorSeleccionado);
     agregarGoleador(equipo, jugadorSeleccionado);
     selector.style.display = 'none';
-    mostrarGol(equipo, jugadorSeleccionado, minuto); 
+    mostrarGol(equipo, jugadorSeleccionado, minuto);
     actualizarContadorGoleadores(equipo, jugadorSeleccionado);
   });
 
@@ -155,15 +174,40 @@ function agregarGoleador(equipo, jugador) {
 function actualizarContadorGoleadores(equipo, jugadorSeleccionado) {
   if (equipo === equipoLocal) {
     goleadoresSeleccionadosArg += 1;
-    goleadoresSeleccionados.push({equipo: equipoLocal, jugador: jugadorSeleccionado});
+    goleadoresSeleccionados.push({ equipo: equipoLocal, jugador: jugadorSeleccionado });
   } else if (equipo === equipoVisitante) {
     goleadoresSeleccionadosFra += 1;
-    goleadoresSeleccionados.push({equipo: equipoVisitante, jugador: jugadorSeleccionado});
+    goleadoresSeleccionados.push({ equipo: equipoVisitante, jugador: jugadorSeleccionado });
   }
 
-  guardarDatosLocalStorage();
+  guardarDatosLocalStorage()
+    .then(() => {
+      Swal.fire({
+        title: '¡Se seleccionó al goleador con éxito!',
+        padding: '1rem',
+        background: 'rgb(240, 248, 255)',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+      });
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al seleccionar goleador: ' + error,
+        padding: '1rem',
+        background: 'rgb(240, 248, 255)',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+      });
+    });
 }
 
+// Mostrar/Ocultar Goleadores
 document.getElementById('goleadoresButton').addEventListener('click', function () {
   if (!goleadoresMostrados) {
     mostrarGoleadores();
@@ -250,11 +294,11 @@ function iniciarPartido() {
 function resultadoFinal(equipo1, goles1, goles2, equipo2) {
   const resultadoFinalElement = document.getElementById('resultadoFinal');
 
-  let resultadoFinalTexto = ''; 
+  let resultadoFinalTexto = '';
   const resultadoPartido = {
     equipo1,
     goles1,
-    equipo2, 
+    equipo2,
     goles2
   };
 
@@ -263,7 +307,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
   historialPartidos.push(resultadoPartido);
 
   if (goles1 > goles2) {
-    victoriasArgentina+=1;
+    victoriasArgentina += 1;
     resultadoFinalTexto = `${equipo1} ${goles1} - ${goles2} ${equipo2} (${equipo1} Campeón)`;
     const campeonArgHTML = `
       <div class="card">
@@ -283,7 +327,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     resultadoFinalElement.innerHTML = campeonArgHTML;
     console.log("¡" + equipo1 + " Campeón del mundo!");
   } else if (goles2 > goles1) {
-    victoriasFrancia+=1;
+    victoriasFrancia += 1;
     resultadoFinalTexto = `${equipo2} ${goles2} - ${goles1} ${equipo1} (${equipo2} Campeón)`;
     const campeonFranciaHTML = `
       <div class="card">
@@ -295,7 +339,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     resultadoFinalElement.innerHTML = campeonFranciaHTML;
     console.log("¡" + equipo2 + " Campeón del mundo!");
   } else {
-    empates+=1;
+    empates += 1;
     resultadoFinalTexto = `Empate ${goles1} - ${goles2}`;
     const penalesHTML = `
       <div class="card">
@@ -308,7 +352,31 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     console.log("¡Habrá penales en el Estadio Lusail!");
   }
 
-  guardarDatosLocalStorage();
+  guardarDatosLocalStorage()
+    .then(() => {
+      Swal.fire({
+        title: '¡Se guardó el resultado con éxito!',
+        padding: '1rem',
+        background: 'rgb(240, 248, 255)',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+      });
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al guardar resultado: ' + error,
+        padding: '1rem',
+        background: 'rgb(240, 248, 255)',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+      });
+    });
 
   const marcadorFinalTexto = document.createElement('h3');
   marcadorFinalTexto.textContent = `Marcador Final: ${equipo1} ${goles1} - ${goles2} ${equipo2}`;
@@ -316,49 +384,160 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
 }
 
 // LOCAL STORAGE
-function guardarDatosLocalStorage(){
-  const datosAGuardar = {
-    historialPartidos,
-    victoriasArgentina,
-    victoriasFrancia,
-    empates,
-    goleadoresSeleccionados
-  };
-  localStorage.setItem('datosPartido', JSON.stringify(datosAGuardar));
+// Función asincrónica para cargar datos desde localStorage
+async function cargarDatosDesdeLocalStorage() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const datosGuardados = localStorage.getItem('datosPartido');
+
+      if (datosGuardados) {
+        const datosParseados = JSON.parse(datosGuardados);
+        historialPartidos = datosParseados.historialPartidos || [];
+        victoriasArgentina = datosParseados.victoriasArgentina || 0;
+        victoriasFrancia = datosParseados.victoriasFrancia || 0;
+        empates = datosParseados.empates || 0;
+        goleadoresSeleccionados = datosParseados.goleadoresSeleccionados || [];
+        resolve(); // Resolvemos la promesa cuando los datos se han cargado
+      } else {
+        reject('No se encontraron datos en localStorage'); // Rechazamos la promesa si no se encontraron datos
+      }
+    }, 1000); // Simulación de una operación asíncrona (por ejemplo, un retardo de 1 segundo)
+  });
 }
 
-function cargarDatosDesdeLocalStorage(){
-  const datosGuardados = localStorage.getItem('datosPartido');
+// Función asincrónica para guardar datos en localStorage
+async function guardarDatosLocalStorage() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const datosAGuardar = {
+        historialPartidos,
+        victoriasArgentina,
+        victoriasFrancia,
+        empates,
+        goleadoresSeleccionados
+      };
+      localStorage.setItem('datosPartido', JSON.stringify(datosAGuardar));
+      resolve();
+    }, 1000); // Simulación de una operación asíncrona (por ejemplo, un retardo de 1 segundo)
+  });
+}
 
-  if (datosGuardados) {
-    const datosParseados = JSON.parse(datosGuardados);
-    historialPartidos = datosParseados.historialPartidos || [];
-    victoriasArgentina = datosParseados.victoriasArgentina || 0;
-    victoriasFrancia = datosParseados.victoriasFrancia || 0;
-    empates = datosParseados.empates || 0;
-    goleadoresSeleccionados = datosParseados.goleadoresSeleccionados || [];
+// Uso de las funciones asincrónicas con await
+async function cargarYGuardarDatos() {
+  try {
+    await cargarDatosDesdeLocalStorage();
+    await guardarDatosLocalStorage();
+  } catch (error) {
+    Swal.fire({
+      title: 'Error al cargar y guardar datos' + error,
+      padding: '1rem',
+      background: 'rgb(240, 248, 255)',
+      timer: 3000,
+      timerProgressBar: true,
+      toast: true,
+      position: 'top-end'
+    });
   }
 }
+
+cargarYGuardarDatos();
 
 function guardarUltimoPartido(resultado) {
   localStorage.setItem('ultimoResultado', JSON.stringify(resultado));
 }
 
-cargarDatosDesdeLocalStorage();
+// Mostrar Último Resultado
+document.getElementById('mostrarResultadoButton').addEventListener('click', mostrarUltimoResultado);
 
-document.getElementById('mostrarResultadoButton').addEventListener('click', function () {
-  const contenedorResultado = document.getElementById('resultadoFinal');
+function mostrarUltimoResultado() {
   const resultadoGuardado = localStorage.getItem('ultimoResultado');
-  
-  const resultadoMostrar = resultadoGuardado
-    ? JSON.parse(resultadoGuardado)
-    : null;
+  if (resultadoGuardado) {
+    const resultadoParseado = JSON.parse(resultadoGuardado);
+    const equipo1 = resultadoParseado.equipo1;
+    const goles1 = resultadoParseado.goles1;
+    const equipo2 = resultadoParseado.equipo2;
+    const goles2 = resultadoParseado.goles2;
 
-  if (resultadoMostrar) {
-    contenedorResultado.textContent = `Último resultado: ${resultadoMostrar.equipo1} ${resultadoMostrar.goles1} - ${resultadoMostrar.goles2} ${resultadoMostrar.equipo2}`;
+    const mensaje = `Último resultado: ${equipo1} ${goles1} - ${goles2} ${equipo2}`;
+    Swal.fire({
+      title: mensaje,
+      padding: '1rem',
+      background: 'rgb(240, 248, 255)',
+      timer: 3000,
+      timerProgressBar: true,
+      toast: true,
+      position: 'top-end'
+    });
   } else {
-    contenedorResultado.textContent = 'No hay resultados guardados.';
+    Swal.fire({
+      title: 'No hay resultados previos guardados',
+      padding: '1rem',
+      background: 'rgb(240, 248, 255)',
+      timer: 3000,
+      timerProgressBar: true,
+      toast: true,
+      position: 'top-end'
+    });
   }
+}
+
+
+// API
+const apiKey = '9e094905d4e648409b600f202a9c1a48';
+const today = new Date(); 
+const formattedDate = today.toISOString().split('T')[0]; 
+const apiUrl = `https://api.football-data.org/v2/matches?dateFrom=${formattedDate}&dateTo=${formattedDate}`;
+
+document.getElementById('mostrarAgenda').addEventListener('click', () => {
+  // Aquí colocas tu código para obtener y mostrar la agenda de partidos.
+  fetch(apiUrl, {
+    method: 'GET',
+    headers: {
+      'X-Auth-Token': apiKey,
+    },
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const matchesToday = data.matches.filter(match => match.utcDate.includes(formattedDate));
+
+      if (matchesToday.length === 0) {
+        Swal.fire({
+          title: 'Hoy no hay partidos',
+          icon: 'info',
+          timer: 3000,
+          timerProgressBar: true,
+          toast: true,
+          position: 'top-end',
+        });
+      } else {
+        const matchesList = document.createElement('ul');
+        matchesToday.forEach(match => {
+          const matchItem = document.createElement('li');
+          matchItem.textContent = `Equipo local: ${match.homeTeam.name} - Equipo visitante: ${match.awayTeam.name}`;
+          matchesList.appendChild(matchItem);
+        });
+
+        const agendaDeportiva = document.querySelector('.agendaDeportiva');
+        agendaDeportiva.innerHTML = ''; // Borra el contenido existente
+        agendaDeportiva.appendChild(matchesList);
+      }
+    })
+    .catch(error => {
+      Swal.fire({
+        title: 'Error al obtener la agenda de partidos',
+        text: error,
+        icon: 'error',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+      });
+    });
 });
 
 

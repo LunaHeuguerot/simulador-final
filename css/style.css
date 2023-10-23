@@ -22,6 +22,14 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.instrucciones {
+    background-color: rgba(240, 248, 255, 0.595);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius: 1rem;
+    margin-inline: 100px;
+}
+
 /* Estilos para las cards */
 .card {
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);

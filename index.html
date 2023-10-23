@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMULADOR FINAL DEL MUNDIAL</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="shortcut icon" href="assets/LOGO-QATAR-2022-4.jpg" type="image/x-icon">
 </head>
 <body>
     <h1>ARRANCA LA FINAL DEL MUNDO</h1> 
+
+    <section class="instrucciones">
+        <h2 class="titulo">INSTRUCCIONES</h2> 
+        <p class="instrucciones">Bienvenido al simulador de la final del mundial Qatar 2022. Recordá las formaciones iniciales con el botón <strong>MOSTRAR FORMACIONES</strong> e inicia la simulación con el botón <strong>INICIAR PARTIDO</strong>. Una vez en el partido podrás elegir tus jugadores favoritos como goleadores del partido. También podrás ver los <strong>goleadores</strong> por equipo, el <strong>resultado</strong> y el último resultado simulado. ¡Que lo disfrutes!</p>
+    </section>
+
     <section class="formaciones">
         <h2 class="titulo">FORMACIONES</h2>
         <div class="contenedor-boton">
@@ -23,7 +30,7 @@
     <section class="partido">
         <h2 class="titulo">PARTIDO</h2>
         <div class="contenedor-boton">
-            <button class="button" id="startButton">⚽</button>
+            <button class="button" id="startButton">INICIAR PARTIDO</button><p class="ball">⚽</p>
         </div>
         <div class="contenedor-selectores">
             <div id="selector-argentina"></div>
@@ -51,10 +58,16 @@
         </div>
     </section>
 
+    <section class="agendaDeportiva">
+        <h2 class="titulo">AGENDA DE PARTIDOS</h2>
+        <button class="plegable button" id="mostrarAgenda">MIRA LA AGENDA DE HOY</button>
+        
+    </section>
+
     
     
 
-
+    <script src="assets/anime.min.js"></script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
 </body>
