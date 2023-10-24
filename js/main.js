@@ -151,7 +151,7 @@ function relatoGol(equipo, minuto) {
 
   selector.addEventListener('change', function () {
     const jugadorSeleccionado = selector.value;
-    console.log('Gol de ' + equipo + ' en el minuto ' + minuto + ". Lo hizo " + jugadorSeleccionado);
+    // console.log('Gol de ' + equipo + ' en el minuto ' + minuto + ". Lo hizo " + jugadorSeleccionado);
     agregarGoleador(equipo, jugadorSeleccionado);
     selector.style.display = 'none';
     mostrarGol(equipo, jugadorSeleccionado, minuto);
@@ -325,7 +325,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     `;
 
     resultadoFinalElement.innerHTML = campeonArgHTML;
-    console.log("¡" + equipo1 + " Campeón del mundo!");
+    // console.log("¡" + equipo1 + " Campeón del mundo!");
   } else if (goles2 > goles1) {
     victoriasFrancia += 1;
     resultadoFinalTexto = `${equipo2} ${goles2} - ${goles1} ${equipo1} (${equipo2} Campeón)`;
@@ -337,7 +337,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     `;
 
     resultadoFinalElement.innerHTML = campeonFranciaHTML;
-    console.log("¡" + equipo2 + " Campeón del mundo!");
+    // console.log("¡" + equipo2 + " Campeón del mundo!");
   } else {
     empates += 1;
     resultadoFinalTexto = `Empate ${goles1} - ${goles2}`;
@@ -349,7 +349,7 @@ function resultadoFinal(equipo1, goles1, goles2, equipo2) {
     `;
 
     resultadoFinalElement.innerHTML = penalesHTML;
-    console.log("¡Habrá penales en el Estadio Lusail!");
+    // console.log("¡Habrá penales en el Estadio Lusail!");
   }
 
   guardarDatosLocalStorage()
@@ -482,64 +482,64 @@ function mostrarUltimoResultado() {
 }
 
 
-// API
-const apiKey = '9e094905d4e648409b600f202a9c1a48';
-const today = new Date(); 
-const formattedDate = today.toISOString().split('T')[0]; 
-const apiUrl = `https://api.football-data.org/v2/matches?dateFrom=${formattedDate}&dateTo=${formattedDate}`;
+// JSON
 
-document.getElementById('mostrarAgenda').addEventListener('click', () => {
-  // Aquí colocas tu código para obtener y mostrar la agenda de partidos.
-  fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'X-Auth-Token': apiKey,
-    },
-  })
+
+function mostrarMejoresGoles(data) {
+  const listaMejoresGoles = document.getElementById("listaGoles");
+  
+  data.mejoresGolesMundial.forEach(gol => {
+    const golItem = document.createElement("li");
+    const verGolButton = document.createElement("a");
+    verGolButton.innerText = "Ver gol en Twitter";
+    verGolButton.href = gol.videoURL;
+    verGolButton.target = "_blank";
+    
+    const golImage = document.createElement("img");
+    golImage.src = gol.foto;
+    golImage.alt = "Foto del gol";
+    golImage.width = 200;
+    
+    golItem.appendChild(golImage);
+    golItem.innerHTML += `<br><strong>Partido:</strong> ${gol.partido} <strong>Autor:</strong> ${gol.autor} <strong>Selección:</strong> ${gol.seleccion}`;
+    golItem.appendChild(verGolButton);
+    listaMejoresGoles.appendChild(golItem);
+  });
+}
+
+
+function cargarDatosGoles() {
+  fetch("mejores-goles.json") 
     .then(response => {
       if (!response.ok) {
-        throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+        Swal.fire({
+          title: `Error en la solicitud: ${response.status} ${response.statusText}`,
+          padding: '1rem',
+          background: 'rgb(240, 248, 255)',
+          timer: 3000,
+          timerProgressBar: true,
+          toast: true,
+          position: 'top-end'
+        });
       }
       return response.json();
     })
     .then(data => {
-      const matchesToday = data.matches.filter(match => match.utcDate.includes(formattedDate));
-
-      if (matchesToday.length === 0) {
-        Swal.fire({
-          title: 'Hoy no hay partidos',
-          icon: 'info',
-          timer: 3000,
-          timerProgressBar: true,
-          toast: true,
-          position: 'top-end',
-        });
-      } else {
-        const matchesList = document.createElement('ul');
-        matchesToday.forEach(match => {
-          const matchItem = document.createElement('li');
-          matchItem.textContent = `Equipo local: ${match.homeTeam.name} - Equipo visitante: ${match.awayTeam.name}`;
-          matchesList.appendChild(matchItem);
-        });
-
-        const agendaDeportiva = document.querySelector('.agendaDeportiva');
-        agendaDeportiva.innerHTML = ''; // Borra el contenido existente
-        agendaDeportiva.appendChild(matchesList);
-      }
+      mostrarMejoresGoles(data);
     })
     .catch(error => {
       Swal.fire({
-        title: 'Error al obtener la agenda de partidos',
-        text: error,
-        icon: 'error',
+        title: 'Error al cargar goles' + error,
+        padding: '1rem',
+        background: 'rgb(240, 248, 255)',
         timer: 3000,
         timerProgressBar: true,
         toast: true,
-        position: 'top-end',
+        position: 'top-end'
       });
     });
-});
+}
 
 
-
+document.getElementById("mostrarGoles").addEventListener("click", cargarDatosGoles);
 

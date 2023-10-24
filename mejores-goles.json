@@ -1,0 +1,85 @@
+{
+    "mejoresGolesMundial": [
+      {
+        "partido": "Brasil-Serbia (Grupos)",
+        "autor": "Richarlison",
+        "seleccion": "Brasil",
+        "videoURL": "https://twitter.com/i/status/1605583921529294848",
+        "tweetID": "1605583921529294848",
+        "foto" : "https://cope-cdnmed.cope.es/resources/jpg/9/9/1671814264199.jpg"
+      },
+      {
+        "partido": "Mexico-Arabia Saudita (Grupos)",
+        "autor": "Luis Chavez",
+        "seleccion": "Mexico",
+        "videoURL": "https://twitter.com/i/status/1605583924146470912",
+        "tweetID": "1605583924146470912",
+        "foto" : "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/FNXQWICYYHIW2HONMU76KVOPZQ.jpg"
+      },
+      {
+        "partido": "Argentina-Mexico (Grupos)",
+        "autor": "Ezo Fernandez",
+        "seleccion": "Argentina",
+        "videoURL": "https://twitter.com/i/status/1605583929339101185",
+        "tweetID": "1605583929339101185",
+        "foto" : "https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blteccf635fd47ea937/638284106b971b24f8fc9a44/GettyImages-1245125593.jpg?auto=webp&format=pjpg&width=3840&quality=60"
+      },
+      {
+        "partido": "Brasil-Croacia (Cuartos)",
+        "autor": "Neymar",
+        "seleccion": "Brasil",
+        "videoURL": "https://twitter.com/i/status/1605583931964854279",
+        "tweetID" : "1605583931964854279",
+        "foto" : "https://www.ole.com.ar/images/2022/12/09/MHIlzxc9A_720x0__1.jpg"
+      },
+      {
+        "partido": "Paises Bajos-Ecuador (Grupos)",
+        "autor": "Cody Gakpo",
+        "seleccion": "Paises Bajos",
+        "videoURL": "https://twitter.com/i/status/1605583934640648192",
+        "tweetID" : "1605583934640648192",
+        "foto" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD5u87u4bPmzK3DGji_4rIE6HJE4_zd4uCMumJdfX2FQIAOuaOp6-Kn1q3dnyDzoUw3UE&usqp=CAU"
+      },
+      {
+        "partido": "Camerun-Serbia (Grupos)",
+        "autor": "Vincent Aboubakar",
+        "seleccion": "Camerun",
+        "videoURL": "https://twitter.com/i/status/1605583937132269570",
+        "tweetID" : "1605583937132269570",
+        "foto" : "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/PEFYZXDZCNFWZJKJ6UYQHBNBYI.jpg"
+      },
+      {
+        "partido": "Corea del Sur-Brasil (Octavos)",
+        "autor": "Paik Seung-Ho",
+        "seleccion": "Corea del Sur",
+        "videoURL": "https://twitter.com/i/status/1605583939854143488",
+        "tweetID" : "1605583939854143488",
+        "foto" : "https://www.si.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTk0MjM3ODE3NDY1ODc0MDk3/paik-seung-ho-gol.jpg"
+      },
+      {
+        "partido": "Arabia Saudita-Argentina (Grupos)",
+        "autor": "Al-Dawsari",
+        "seleccion": "Arabia Saudita",
+        "videoURL": "https://twitter.com/i/status/1605583942404476929",
+        "tweetID" : "1605583942404476929",
+        "foto" : "https://www.ellitoral.com/images/2022/11/22/SnAhMi8b0_1565x0__1.jpg"
+      },
+      {
+        "partido": "Brasil-Corea del Sur (Octavos)",
+        "autor": "Richarlison",
+        "seleccion": "Brasil",
+        "videoURL": "https://twitter.com/i/status/1605583945344733184",
+        "tweetID" : "1605583945344733184",
+        "foto" : "https://files.antena2.com/antena2/public/styles/imagen_despliegue/public/2022-12/000_32Z8243.jpg.webp?VersionId=_hK_t0zIWsXumOrbRawjEw7aZ8zs9va5&itok=mLztpm9Y"
+      },
+      {
+        "partido": "Francia-Polonia (Octavos)",
+        "autor": "Kylian Mbappe",
+        "seleccion": "Francia",
+        "videoURL": "https://twitter.com/i/status/1605583948188241920",
+        "tweetID" : "1605583948188241920",
+        "foto" : "https://www.mundodeportivo.com/us/files/article_main_microformat/uploads/2022/12/04/638cce24553ec.jpeg"
+      }
+    ]
+  }
+  
